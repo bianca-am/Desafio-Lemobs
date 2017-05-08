@@ -79,6 +79,12 @@ class AlunoController extends Controller
     {
         // buscando aluno
         $alunos = Aluno::where('nome', 'like', $nome)->get();
+        foreach($alunos as $aluno){
+        $endereco = Endereco::findOrFail($aluno->endereco_id);
+        $aluno->rua = $endereco->rua;
+        $aluno->numero = $endereco->numero;
+        $aluno->bairro = $endereco->bairro;
+        }
         return view('aluno.search',['alunos' => $alunos]);
     }
 

@@ -25,8 +25,20 @@
           {!! $errors->first('nota','<p class="help-block">:message</p>') !!}
         </div>
         <div class="form-group{{ ($errors->has('endereco_id')) ? $errors->first('endereco_id') : '' }}">
-          <input type="number" name="endereco_id" class="form-control disabled" value="{{$aluno->endereco_id}}" disabled>
+          <input type="hidden" name="endereco_id" class="form-control disabled" value="{{$aluno->endereco_id}}" disabled>
           {!! $errors->first('endereco_id','<p class="help-block">:message</p>') !!}
+        </div>
+        <div class="form-group{{ ($errors->has('rua')) ? $errors->first('rua') : '' }}">
+          <input type="text" name="rua" class="form-control disabled" value="{{$aluno->rua}}" disabled>
+          {!! $errors->first('rua','<p class="help-block">:message</p>') !!}
+        </div>
+        <div class="form-group{{ ($errors->has('numero')) ? $errors->first('numero') : '' }}">
+          <input type="number" name="numero" class="form-control disabled" value="{{$aluno->numero}}" disabled>
+          {!! $errors->first('numero','<p class="help-block">:message</p>') !!}
+        </div>
+        <div class="form-group{{ ($errors->has('bairro')) ? $errors->first('bairro') : '' }}">
+          <input type="text" name="bairro" class="form-control disabled" value="{{$aluno->bairro}}" disabled>
+          {!! $errors->first('bairro','<p class="help-block">:message</p>') !!}
         </div>
         <div class="form-group">
       </div>
