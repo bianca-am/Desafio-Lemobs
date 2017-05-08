@@ -11,6 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+         Eloquent::unguard();
+
+        // call our class and run our seeds
+        $this->call('AlunoSeeder');
+        $this->command->info('Aluno app seeds finished.');
     }
 }

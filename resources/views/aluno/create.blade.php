@@ -18,12 +18,20 @@
           {!! $errors->first('matricula','<p class="help-block">:message</p>') !!}
         </div>
         <div class="form-group{{ ($errors->has('nota')) ? $errors->first('nota') : '' }}">
-          <input type="text" name="nota" class="form-control" placeholder="Digite a Nota">
+          <input type="number" step="0.01" name="nota" class="form-control" placeholder="Digite a Nota">
           {!! $errors->first('nota','<p class="help-block">:message</p>') !!}
         </div>
-        <div class="form-group{{ ($errors->has('endereco_id')) ? $errors->first('endereco_id') : '' }}">
-          <input type="text" name="endereco_id" class="form-control" placeholder="Digite ">
-          {!! $errors->first('endereco_id','<p class="help-block">:message</p>') !!}
+        <div class="form-group{{ ($errors->has('rua')) ? $errors->first('rua') : '' }}">
+          <input type="text" name="rua" class="form-control" placeholder="Digite ">
+          {!! $errors->first('rua','<p class="help-block">:message</p>') !!}
+        </div>
+        <div class="form-group{{ ($errors->has('numero')) ? $errors->first('numero') : '' }}">
+          <input type="number" name="numero" class="form-control" placeholder="Digite ">
+          {!! $errors->first('numero','<p class="help-block">:message</p>') !!}
+        </div>
+        <div class="form-group{{ ($errors->has('bairro')) ? $errors->first('bairro') : '' }}">
+          <input type="text" name="bairro" class="form-control" placeholder="Digite ">
+          {!! $errors->first('bairro','<p class="help-block">:message</p>') !!}
         </div>
         <div class="form-group">
           <input type="submit" class="btn btn-primary" value="Criar">

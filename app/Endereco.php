@@ -9,6 +9,10 @@ class Endereco extends Model
     protected $table = 'endereco';
 
     protected function aluno(){
-        return $this->belongsTo('App\Aluno');
+        return $this->belongsTo('Aluno');
+    }
+
+    protected function getId(){
+        return $this->id;
     }
 }

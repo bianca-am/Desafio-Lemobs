@@ -5,12 +5,10 @@
       <h1>Buscar Aluno</h1>
     </div>
   </div>
-  <div class="row">
-  Caixinha de pesquisa
-  </div>
+  <?php $count=1; ?>
   @foreach($alunos as $aluno)
   <div class="row">
-    <h3>Aluno - {{$aluno->nome}}</h3>
+    <h3>{{$count++}}º Aluno - {{$aluno->nome}}</h3>
     <form class="" action="{{route('aluno.update',$aluno->id)}}" method="post">
       <input name="_method" type="hidden" value="PATCH">
       {{csrf_field()}}

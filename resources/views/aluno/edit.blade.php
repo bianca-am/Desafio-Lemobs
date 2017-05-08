@@ -22,8 +22,20 @@
           {!! $errors->first('nota','<p class="help-block">:message</p>') !!}
         </div>
         <div class="form-group{{ ($errors->has('endereco_id')) ? $errors->first('endereco_id') : '' }}">
-          <input type="number" name="endereco_id" class="form-control" value="{{$aluno->endereco_id}}">
+          <input type="hidden" name="endereco_id" class="form-control" value="{{$aluno->endereco_id}}">
           {!! $errors->first('endereco_id','<p class="help-block">:message</p>') !!}
+        </div>
+        <div class="form-group{{ ($errors->has('rua')) ? $errors->first('rua') : '' }}">
+          <input type="text" name="rua" class="form-control" value="{{$aluno->rua}}">
+          {!! $errors->first('rua','<p class="help-block">:message</p>') !!}
+        </div>
+        <div class="form-group{{ ($errors->has('numero')) ? $errors->first('numero') : '' }}">
+          <input type="number" name="numero" class="form-control" value="{{$aluno->numero}}">
+          {!! $errors->first('numero','<p class="help-block">:message</p>') !!}
+        </div>
+        <div class="form-group{{ ($errors->has('bairro')) ? $errors->first('bairro') : '' }}">
+          <input type="text" name="bairro" class="form-control" value="{{$aluno->bairro}}">
+          {!! $errors->first('bairro','<p class="help-block">:message</p>') !!}
         </div>
         <div class="form-group">
         <input type="submit" class="btn btn-primary" value="Salvar">

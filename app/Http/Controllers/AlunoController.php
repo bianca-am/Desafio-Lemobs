@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Aluno;
+use App\Endereco;
 
 class AlunoController extends Controller
 {
@@ -44,16 +45,28 @@ class AlunoController extends Controller
             'nome'=> 'bail|required|max:255',
             'matricula'=>'bail|required|max:45',
             'nota'=> 'required',
-            'endereco_id'=> 'required'
+            'rua'=> 'required',
+            'numero'=> 'required',
+            'bairro'=> 'required'
         ]);
+        // Endereco recebe valores da tela
+        $endereco = new endereco;
+        $endereco->rua = $request->rua;
+        $endereco->numero = $request->numero;
+        $endereco->bairro = $request->bairro;
+        $endereco->save();
+        $endereco = Endereco::latest()->first();
+        //dd($endereco);
         // Aluno recebe os valores da tela
-        $aluno = new aluno;
-        $aluno->nome = $request->nome;
-        $aluno->matricula = $request->matricula;
-        $aluno->nota = $request->nota;
-        $aluno->endereco_id= $request->endereco_id;
-        $aluno->save();
+         $aluno = new aluno;
+         $aluno->nome = $request->nome;
+         $aluno->matricula = $request->matricula;
+         $aluno->nota = $request->nota;
+         //$aluno->endereco()->save($endereco); ou $endereco->aluno()->associate($aluno); Corrigir isso para utilizar o eloquent corretamente.
+         $aluno->endereco_id = $endereco->id;
+         $aluno->save();
         return redirect()->route('aluno.index')->with('alert-success','Aluno criado com sucesso.');
+        
     }
 
     /**
@@ -65,7 +78,7 @@ class AlunoController extends Controller
     public function show($nome)
     {
         // buscando aluno
-        $alunos = Aluno::where('nome', 'like', 'teste')->get();
+        $alunos = Aluno::where('nome', 'like', $nome)->get();
         return view('aluno.search',['alunos' => $alunos]);
     }
 
@@ -78,6 +91,11 @@ class AlunoController extends Controller
     public function edit($id)
     {
         $aluno = Aluno::findOrFail($id);
+        $endereco = Endereco::findOrFail($aluno->endereco_id);
+        $aluno->rua = $endereco->rua;
+        $aluno->numero = $endereco->numero;
+        $aluno->bairro = $endereco->bairro;
+
         return view('aluno.edit',compact('aluno'));
     }
 
@@ -95,7 +113,9 @@ class AlunoController extends Controller
           'nome'=> 'bail|required|max:255',
           'matricula'=>'bail|required|max:45',
           'nota'=> 'required',
-          'endereco_id'=> 'required'
+          'rua'=> 'required',
+          'numero'=> 'required',
+          'bairro'=> 'required'
         ]);
 
         // Aluno recebe os valores da tela
@@ -105,6 +125,12 @@ class AlunoController extends Controller
         $aluno->nota = $request->nota;
         $aluno->endereco_id= $request->endereco_id;
         $aluno->save();
+
+        $endereco = Endereco::findOrFail($aluno->endereco_id);
+        $endereco->rua = $request->rua;
+        $endereco->numero = $request->numero;
+        $endereco->bairro = $request->bairro;
+        $endereco->save();
 
         return redirect()->route('aluno.index')->with('alert-success','As alterações foram salvas com sucesso.');
     }
