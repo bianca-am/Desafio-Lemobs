@@ -19,6 +19,7 @@ class AlunoController extends Controller
     public function index()
     {
         $alunos = Aluno::all();
+        $valorBusca = ""; 
         return view('aluno.index',['alunos' => $alunos]);
     }
 
@@ -78,14 +79,14 @@ class AlunoController extends Controller
     public function show($nome)
     {
         // buscando aluno
-        $alunos = Aluno::where('nome', 'like', $nome)->get();
+        $alunos = Aluno::where('nome', 'like', '%'.$nome.'%')->get();
         foreach($alunos as $aluno){
-        $endereco = Endereco::findOrFail($aluno->endereco_id);
-        $aluno->rua = $endereco->rua;
-        $aluno->numero = $endereco->numero;
-        $aluno->bairro = $endereco->bairro;
+            $endereco = Endereco::findOrFail($aluno->endereco_id);
+            $aluno->rua = $endereco->rua;
+            $aluno->numero = $endereco->numero;
+            $aluno->bairro = $endereco->bairro;
         }
-        return view('aluno.search',['alunos' => $alunos]);
+        return view('aluno.search',['alunos' => $alunos,'nome' => $nome]);
     }
 
     /**
