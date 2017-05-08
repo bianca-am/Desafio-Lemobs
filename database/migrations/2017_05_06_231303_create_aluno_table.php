@@ -20,6 +20,7 @@ class CreateAlunoTable extends Migration
             $table->float('nota');
             $table->integer('endereco_id');
             $table->foreign('endereco_id')->references('id')->on('endereco');
+            $table->timestamps();
         });
     }
 

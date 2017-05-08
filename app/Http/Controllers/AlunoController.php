@@ -28,7 +28,7 @@ class AlunoController extends Controller
      */
     public function create()
     {
-        //
+        return view('aluno.create');
     }
 
     /**
@@ -39,7 +39,21 @@ class AlunoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validation
+        $this->validate($request,[
+            'nome'=> 'bail|required|max:255',
+            'matricula'=>'bail|required|max:45',
+            'nota'=> 'required',
+            'endereco_id'=> 'required'
+        ]);
+        // create new data
+        $aluno = new aluno;
+        $aluno->nome = $request->nome;
+        $aluno->matricula = $request->matricula;
+        $aluno->nota = $request->nota;
+        $aluno->endereco_id= $request->endereco_id;
+        $aluno->save();
+        return redirect()->route('aluno.index')->with('alert-success','Aluno criado com sucesso.');
     }
 
     /**
@@ -61,7 +75,9 @@ class AlunoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $aluno = Aluno::findOrFail($id);
+        // return to the edit views
+        return view('aluno.edit',compact('aluno'));
     }
 
     /**
@@ -73,7 +89,22 @@ class AlunoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         // validation
+        $this->validate($request,[
+          'nome'=> 'bail|required|max:255',
+          'matricula'=>'bail|required|max:45',
+          'nota'=> 'required',
+          'endereco_id'=> 'required'
+        ]);
+
+        $aluno = Aluno::findOrFail($id);
+        $aluno->nome = $request->nome;
+        $aluno->matricula = $request->matricula;
+        $aluno->nota = $request->nota;
+        $aluno->endereco_id= $request->endereco_id;
+        $aluno->save();
+
+        return redirect()->route('aluno.index')->with('alert-success','As alterações foram salvas com sucesso.');
     }
 
     /**
@@ -84,6 +115,9 @@ class AlunoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $aluno = Aluno::findOrFail($id);
+        $aluno->delete();
+        return redirect()->route('aluno.index')->with('alert-success','Aluno foi deletado com sucesso.');
+    
     }
 }

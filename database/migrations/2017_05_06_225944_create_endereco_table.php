@@ -18,6 +18,7 @@ class CreateEnderecoTable extends Migration
             $table->string('rua');
             $table->integer('numero');
             $table->string('bairro');
+            $table->timestamps();
         });
     }
 

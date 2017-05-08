@@ -10,7 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function(){
+    return view('master');
+});
 
 Route::group(['middleware' => ['web']], function() {
-    Route::resource('/','AlunoController');
+    Route::resource('aluno','AlunoController');
 });
