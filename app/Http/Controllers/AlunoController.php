@@ -39,14 +39,14 @@ class AlunoController extends Controller
      */
     public function store(Request $request)
     {
-        // validation
+        // validação
         $this->validate($request,[
             'nome'=> 'bail|required|max:255',
             'matricula'=>'bail|required|max:45',
             'nota'=> 'required',
             'endereco_id'=> 'required'
         ]);
-        // create new data
+        // Aluno recebe os valores da tela
         $aluno = new aluno;
         $aluno->nome = $request->nome;
         $aluno->matricula = $request->matricula;
@@ -59,12 +59,14 @@ class AlunoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $nome
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($nome)
     {
-        //
+        // buscando aluno
+        $alunos = Aluno::where('nome', 'like', 'teste')->get();
+        return view('aluno.search',['alunos' => $alunos]);
     }
 
     /**
@@ -76,7 +78,6 @@ class AlunoController extends Controller
     public function edit($id)
     {
         $aluno = Aluno::findOrFail($id);
-        // return to the edit views
         return view('aluno.edit',compact('aluno'));
     }
 
@@ -89,7 +90,7 @@ class AlunoController extends Controller
      */
     public function update(Request $request, $id)
     {
-         // validation
+         // validação
         $this->validate($request,[
           'nome'=> 'bail|required|max:255',
           'matricula'=>'bail|required|max:45',
@@ -97,6 +98,7 @@ class AlunoController extends Controller
           'endereco_id'=> 'required'
         ]);
 
+        // Aluno recebe os valores da tela
         $aluno = Aluno::findOrFail($id);
         $aluno->nome = $request->nome;
         $aluno->matricula = $request->matricula;
